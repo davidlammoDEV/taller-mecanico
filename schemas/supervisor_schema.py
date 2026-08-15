@@ -1,0 +1,22 @@
+from pydantic import BaseModel
+from typing import Optional
+from datetime import date
+
+class SupervisorSalida(BaseModel):
+    id : int
+    documento : str
+    nombre : str
+    telefono : Optional[str] | None = None
+    fecha_ingreso : date
+
+class SupervisorEntrada(BaseModel):
+    documento : str
+    nombre : str
+    telefono : Optional[str] | None = None
+    fecha_ingreso : date
+
+class SupervisorUpdate(BaseModel):
+    documento : Optional[str] | None = None
+    nombre : Optional[str] | None = None
+    telefono : Optional[str] | None = None
+    fecha_ingreso : Optional[date] | None = None
