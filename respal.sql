@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict TMmT264Hr8VfkER3qXlmXjSBhIoh0MTUf3aHQvpkFsuzMasOXdp7DW1EsO20nHf
+\restrict Ko4n81VgQdkpwV6NNPLApIZGZak0EGGtxVSFj5sp3gJ0a2UbOo4aDUF8NjvZaLg
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
@@ -1181,5 +1181,5 @@ ALTER TABLE ONLY public.vehiculo
 -- PostgreSQL database dump complete
 --
 
-\unrestrict TMmT264Hr8VfkER3qXlmXjSBhIoh0MTUf3aHQvpkFsuzMasOXdp7DW1EsO20nHf
+\unrestrict Ko4n81VgQdkpwV6NNPLApIZGZak0EGGtxVSFj5sp3gJ0a2UbOo4aDUF8NjvZaLg
 

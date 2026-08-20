@@ -5,12 +5,11 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, status
 from typing import List
 from models.usuario_model import Usuario
-from tokensitos.auth_dependencias import VerificarRoles, require_supervisor
+from tokensitos.auth_dependencias import VerificarRoles
 
 orden_router = APIRouter(
     prefix="/orden",
-    tags=["Orden"],
-    dependencies=[Depends(require_supervisor)]
+    tags=["Orden"]
 )
 
 def get_db():

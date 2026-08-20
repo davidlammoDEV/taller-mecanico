@@ -29,9 +29,6 @@ class Orden(Base):
     mecanico_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("mecanico.id", ondelete="RESTRICT"), nullable=False
     )
-    supervisor_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("supervisor.id", ondelete="RESTRICT"), nullable=False
-    )
     activo: Mapped[bool] = mapped_column(Boolean, default=True)
 
     
@@ -41,7 +38,6 @@ class Orden(Base):
     servicios = relationship("OrdenDetalleServicio", back_populates="orden", cascade="all, delete-orphan")
     repuestos = relationship("OrdenDetalleRepuesto", back_populates="orden",cascade="all, delete-orphan")
     factura = relationship("Factura", back_populates="orden")
-    supervisor = relationship("Supervisor", back_populates="ordenes")
 
     def __repr__(self) -> str:
         return f"<OrdenServicio id={self.id} estado={self.estado!r}>"

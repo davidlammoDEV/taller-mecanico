@@ -9,8 +9,7 @@ from tokensitos.auth_dependencias import VerificarRoles, require_supervisor
 
 servicio_router = APIRouter(
     prefix="/servicio",
-    tags=["Servicio"],
-    dependencies=[Depends(require_supervisor)]
+    tags=["Servicio"]
 )
 
 def get_db():
@@ -29,18 +28,18 @@ def listar_servicios(db: Session = Depends(get_db)):
     return servicio_service.listar_servicios(db)
 
 @servicio_router.post("/", response_model=ServicioEntrada, status_code=status.HTTP_200_OK)
-def crear_servicio(servicio: ServicioEntrada, db:Session = Depends(get_db)):
+def crear_servicio(servicio: ServicioEntrada, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):
     return servicio_service.crear_servicio(servicio, db)
 
 @servicio_router.put("/{id}", response_model=ServicioSalida)
-def actualizar_servicio_completo(id: int, cliente_update: ServicioEntrada, db: Session = Depends(get_db)):
+def actualizar_servicio_completo(id: int, cliente_update: ServicioEntrada, db: Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):
     return servicio_service.actualizar_servicio_completo(id, cliente_update, db)
 
 @servicio_router.patch("/{id}", response_model=ServicioSalida)
-def actualizar_servicio_parcial(id: int, servicio_update: ServicioUpdata, db: Session = Depends(get_db)):
+def actualizar_servicio_parcial(id: int, servicio_update: ServicioUpdata, db: Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):
     return servicio_service.actualizar_servicio_parcial(id, servicio_update, db)
 
 @servicio_router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def eliminar_servicio_logico(id: int, db: Session = Depends(get_db)):
+def eliminar_servicio_logico(id: int, db: Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):
     return servicio_service.eliminar_servicio_logico(id, db)
 

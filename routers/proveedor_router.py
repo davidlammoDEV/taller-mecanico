@@ -9,8 +9,7 @@ from models.usuario_model import Usuario
 
 proveedor_router = APIRouter(
     prefix="/proveedor",
-    tags=["Proveedor"],
-    dependencies=[Depends(require_supervisor)]
+    tags=["Proveedor"]
 )
 
 def get_db():
@@ -41,5 +40,5 @@ def actualizar_mecanico_parcial(id: int, proveedor_update: ProveedorUpdata, db: 
     return proveedor_service.actualizar_mecanico_parcial(id, proveedor_update, db)
 
 @proveedor_router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def eliminar_proveedor_logico(id: int, db: Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([2,3]))):
+def eliminar_proveedor_logico(id: int, db: Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([2]))):
     return proveedor_service.eliminar_proveedor_logico(id, db)

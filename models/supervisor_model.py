@@ -14,7 +14,6 @@ class Supervisor(Base):
     fecha_ingreso: Mapped[date] = mapped_column(Date, nullable=False, server_default=func.current_date())
     activo: Mapped[bool] = mapped_column(Boolean, default=True)
 
-    ordenes = relationship("Orden", back_populates="supervisor")
 
     def __repr__(self) -> str:
         return f"<Mecanico id={self.id} nombre={self.nombre!r}>"
