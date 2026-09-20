@@ -44,10 +44,10 @@ def client(db_session):
 
 @pytest.fixture
 def token(client, db_session):
-    rol = db_session.query(Rol).filter(Rol.idrol == 1).first()
+    rol = db_session.query(Rol).filter(Rol.idrol == 2).first()
     if not rol:
         rol = Rol(
-            idrol=1,
+            idrol=2,
             nombre="Administrador",
             descripcion="Rol de administrador del sistema"
         )
@@ -67,7 +67,7 @@ def token(client, db_session):
 
     user_log = User_Log(
         iduser=usuario.iduser,
-        idrol=1,
+        idrol=2,
         activo=True
     )
     db_session.add(user_log)
