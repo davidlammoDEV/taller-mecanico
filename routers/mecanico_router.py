@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.mecanico_schema import MecanicoEntrada, MecanicoSalida, MecanicoUpdate
 from services import mecanico_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ mecanico_router = APIRouter(
     prefix="/mecanico",
     tags=["Mecanico"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @mecanico_router.get("/{id}", response_model=MecanicoSalida)
 def obtener_mecanico(id:int, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([2,3]))):

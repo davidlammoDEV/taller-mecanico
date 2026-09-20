@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.vehiculo_schema import VehiculoEntrada, VehiculoSalida, VehiculoUpdate
 from services import vehiculo_service
 from sqlalchemy.orm import Session
@@ -11,15 +11,6 @@ vehiculo_router = APIRouter(
     prefix="/vehiculo",
     tags=["Vehiculo"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
 
 @vehiculo_router.get("/{placa}", response_model=VehiculoSalida)
 def obtener_vehiculo(placa: str, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):

@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.rol_schema import *
 from services import rol_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ rol_router = APIRouter(
     prefix="/Rol",
     tags=["Rol"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @rol_router.get("/", response_model=List[RolSalida], status_code=status.HTTP_200_OK)
 def listar_roles(db: Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([2]))):

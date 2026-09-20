@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.repuesto_schema import RepuestoEntrada, RepuestoSalida, RepuestoUpdata
 from services import repuesto_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ repuesto_router = APIRouter(
     prefix="/repuesto",
     tags=["Repuesto"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @repuesto_router.get("/{codigo}", response_model=RepuestoSalida)
 def obtener_repuesto(codigo:str, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):

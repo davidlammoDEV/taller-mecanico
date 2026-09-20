@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.proveedor_schema import ProveedorEntrada, ProveedorSalida, ProveedorUpdata
 from services import proveedor_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ proveedor_router = APIRouter(
     prefix="/proveedor",
     tags=["Proveedor"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @proveedor_router.get("/{id}", response_model=ProveedorSalida)
 def obtener_proveedor(id:int, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([2,3]))):

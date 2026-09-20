@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.factura_schema import FacturaActualizar, FacturaEntrada, FacturaSalida
 from services import factura_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ factura_router = APIRouter(
     prefix="/factura",
     tags=["Factura"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @factura_router.get("/{factura_id}", response_model=FacturaSalida)
 def obtener_factura(factura_id: int, db: Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3])) ):

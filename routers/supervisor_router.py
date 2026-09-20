@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.supervisor_schema import SupervisorEntrada, SupervisorSalida, SupervisorUpdate
 from services import supervisor_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ supervisor_router = APIRouter(
     prefix="/supervisor",
     tags=["Supervisor"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @supervisor_router.get("/{id}", response_model=SupervisorSalida)
 def obtener_supervisor(id:int, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([2]))):

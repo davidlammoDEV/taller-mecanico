@@ -97,7 +97,7 @@ def registrar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
         nombre=usuario.nombre,
         apellido=usuario.apellido,
         contrase=hashear_password(usuario.contrase),
-        correou=usuario.correo
+        correo=usuario.correo
     )
     db.add(nuevo_usuario)
     db.commit()

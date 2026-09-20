@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.servicio_schema import ServicioEntrada, ServicioSalida, ServicioUpdata
 from services import servicio_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ servicio_router = APIRouter(
     prefix="/servicio",
     tags=["Servicio"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @servicio_router.get("/{id}", response_model=ServicioSalida)
 def obtener_servicio(id:int, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):

@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.orden_schema import OrdenActualizar, OrdenEntrada, OrdenSalida, EstadoOrdenEnum
 from services import orden_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ orden_router = APIRouter(
     prefix="/orden",
     tags=["Orden"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @orden_router.get("/{orden_id}", response_model=OrdenSalida)
 def obtener_orden(orden_id: int, db: Session = Depends(get_db),  current_user: Usuario = Depends(VerificarRoles([1,2,3]))):

@@ -2,7 +2,7 @@ from typing import Optional, List, Any
 from datetime import datetime
 from fastapi import APIRouter, Depends, Query, HTTPException, status
 from sqlalchemy.orm import Session
-from database.connection import SessionLocal
+from database.connection import get_db
 from tokensitos.auth_dependencias import get_current_user  # AJUSTA a tu módulo real de JWT
 from schemas.auditorias_schema import AuditoriaOut, AuditoriaRevisionUpdate, CorregirDatoPayload
 from services import auditoria_service
@@ -25,14 +25,6 @@ router = APIRouter(
     tags=["Auditoría"],
     dependencies=[Depends(require_supervisor)],
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 
 @router.get("/", response_model=List[AuditoriaOut])
 def listar_auditoria(

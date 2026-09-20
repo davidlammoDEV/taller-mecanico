@@ -1,4 +1,4 @@
-from database.connection import SessionLocal
+from database.connection import get_db
 from schemas.cliente_schema import ClienteEntrada, ClienteSalida, ClienteUpdate
 from services import cliente_service
 from sqlalchemy.orm import Session
@@ -11,13 +11,6 @@ cliente_router = APIRouter(
     prefix="/cliente",
     tags=["Cliente"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @cliente_router.get("/{id}", response_model=ClienteSalida)
 def obtener_cliente(id:int, db:Session = Depends(get_db), current_user: Usuario = Depends(VerificarRoles([1,2,3]))):
