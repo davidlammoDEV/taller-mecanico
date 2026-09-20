@@ -127,7 +127,7 @@ def test_actualizar_vehiculo_parcial(client, auth_headers):
     assert response.status_code == 200
     assert response.json()["color"] == "Plateado"
     assert response.json()["kilometraje"] == 82000
-    assert response.json()["marca"] == "Hyundai"  # No debió cambiar
+    assert response.json()["marca"] == "Hyundai"
 
 def test_eliminar_vehiculo(client, auth_headers):
     cliente_id = crear_cliente_de_prueba(client, auth_headers)
